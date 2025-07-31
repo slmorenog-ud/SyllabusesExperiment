@@ -1,0 +1,288 @@
+\documentclass[16pt, a4paper, spanish]{extarticle}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\usepackage{etoolbox}
+\usepackage{sourcesanspro}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{expl3}
+\usepackage{xparse}
+\usepackage{xstring}
+
+%------------------------------
+% Configurando macros para títulos estilizados
+%------------------------------
+\ExplSyntaxOn
+\NewDocumentCommand{\medstyledtitle}{m}
+ {
+  \group_begin:
+  \str_map_inline:nn {#1}
+   {
+    \__medstyledtitle_process:n {##1}
+   }
+  \group_end:
+ }
+
+\cs_new_protected:Nn \__medstyledtitle_process:n
+ {
+  \str_case_e:nnF { \tl_upper_case:n {#1} }
+   {
+    {A}{\textbf{\fontsize{24pt}{26pt}\selectfont A}}
+    {B}{\textbf{\fontsize{24pt}{26pt}\selectfont B}}
+    {C}{\textbf{\fontsize{24pt}{26pt}\selectfont C}}
+    {D}{\textbf{\fontsize{24pt}{26pt}\selectfont D}}
+    {E}{\textbf{\fontsize{24pt}{26pt}\selectfont E}}
+    {F}{\textbf{\fontsize{24pt}{26pt}\selectfont F}}
+    {G}{\textbf{\fontsize{24pt}{26pt}\selectfont G}}
+    {H}{\textbf{\fontsize{24pt}{26pt}\selectfont H}}
+    {I}{\textbf{\fontsize{24pt}{26pt}\selectfont I}}
+    {J}{\textbf{\fontsize{24pt}{26pt}\selectfont J}}
+    {K}{\textbf{\fontsize{24pt}{26pt}\selectfont K}}
+    {L}{\textbf{\fontsize{24pt}{26pt}\selectfont L}}
+    {M}{\textbf{\fontsize{24pt}{26pt}\selectfont M}}
+    {N}{\textbf{\fontsize{24pt}{26pt}\selectfont N}}
+    {O}{\textbf{\fontsize{24pt}{26pt}\selectfont O}}
+    {P}{\textbf{\fontsize{24pt}{26pt}\selectfont P}}
+    {Q}{\textbf{\fontsize{24pt}{26pt}\selectfont Q}}
+    {R}{\textbf{\fontsize{24pt}{26pt}\selectfont R}}
+    {S}{\textbf{\fontsize{24pt}{26pt}\selectfont S}}
+    {T}{\textbf{\fontsize{24pt}{26pt}\selectfont T}}
+    {U}{\textbf{\fontsize{24pt}{26pt}\selectfont U}}
+    {V}{\textbf{\fontsize{24pt}{26pt}\selectfont V}}
+    {W}{\textbf{\fontsize{24pt}{26pt}\selectfont W}}
+    {X}{\textbf{\fontsize{24pt}{26pt}\selectfont X}}
+    {Y}{\textbf{\fontsize{24pt}{26pt}\selectfont Y}}
+    {Z}{\textbf{\fontsize{24pt}{26pt}\selectfont Z}}
+    {Á}{\textbf{\fontsize{24pt}{26pt}\selectfont Á}}
+    {É}{\textbf{\fontsize{24pt}{26pt}\selectfont É}}
+    {Í}{\textbf{\fontsize{24pt}{26pt}\selectfont Í}}
+    {Ó}{\textbf{\fontsize{24pt}{26pt}\selectfont Ó}}
+    {Ú}{\textbf{\fontsize{24pt}{26pt}\selectfont Ú}}
+    {Ñ}{\textbf{\fontsize{24pt}{26pt}\selectfont Ñ}}
+    { }{\hspace{0.45em}}
+    {:}{\fontsize{17pt}{19pt}\selectfont :}
+   }
+   {\fontsize{17pt}{19pt}\selectfont #1}
+ }
+
+\NewDocumentCommand{\smallmedstyledtitle}{m}
+ {
+  \group_begin:
+  \str_map_inline:nn {#1}
+   {
+    \__smallmedstyledtitle_process:n {##1}
+   }
+  \group_end:
+ }
+
+\cs_new_protected:Nn \__smallmedstyledtitle_process:n
+ {
+  \str_case_e:nnF { \tl_upper_case:n {#1} }
+   {
+    {A}{\textbf{\fontsize{19pt}{21pt}\selectfont A}}
+    {B}{\textbf{\fontsize{19pt}{21pt}\selectfont B}}
+    {C}{\textbf{\fontsize{19pt}{21pt}\selectfont C}}
+    {D}{\textbf{\fontsize{19pt}{21pt}\selectfont D}}
+    {E}{\textbf{\fontsize{19pt}{21pt}\selectfont E}}
+    {F}{\textbf{\fontsize{19pt}{21pt}\selectfont F}}
+    {G}{\textbf{\fontsize{19pt}{21pt}\selectfont G}}
+    {H}{\textbf{\fontsize{19pt}{21pt}\selectfont H}}
+    {I}{\textbf{\fontsize{19pt}{21pt}\selectfont I}}
+    {J}{\textbf{\fontsize{19pt}{21pt}\selectfont J}}
+    {K}{\textbf{\fontsize{19pt}{21pt}\selectfont K}}
+    {L}{\textbf{\fontsize{19pt}{21pt}\selectfont L}}
+    {M}{\textbf{\fontsize{19pt}{21pt}\selectfont M}}
+    {N}{\textbf{\fontsize{19pt}{21pt}\selectfont N}}
+    {O}{\textbf{\fontsize{19pt}{21pt}\selectfont O}}
+    {P}{\textbf{\fontsize{19pt}{21pt}\selectfont P}}
+    {Q}{\textbf{\fontsize{19pt}{21pt}\selectfont Q}}
+    {R}{\textbf{\fontsize{19pt}{21pt}\selectfont R}}
+    {S}{\textbf{\fontsize{19pt}{21pt}\selectfont S}}
+    {T}{\textbf{\fontsize{19pt}{21pt}\selectfont T}}
+    {U}{\textbf{\fontsize{19pt}{21pt}\selectfont U}}
+    {V}{\textbf{\fontsize{19pt}{21pt}\selectfont V}}
+    {W}{\textbf{\fontsize{19pt}{21pt}\selectfont W}}
+    {X}{\textbf{\fontsize{19pt}{21pt}\selectfont X}}
+    {Y}{\textbf{\fontsize{19pt}{21pt}\selectfont Y}}
+    {Z}{\textbf{\fontsize{19pt}{21pt}\selectfont Z}}
+    {Á}{\textbf{\fontsize{19pt}{21pt}\selectfont Á}}
+    {É}{\textbf{\fontsize{19pt}{21pt}\selectfont É}}
+    {Í}{\textbf{\fontsize{19pt}{21pt}\selectfont Í}}
+    {Ó}{\textbf{\fontsize{19pt}{21pt}\selectfont Ó}}
+    {Ú}{\textbf{\fontsize{19pt}{21pt}\selectfont Ú}}
+    {Ñ}{\textbf{\fontsize{19pt}{21pt}\selectfont Ñ}}
+    { }{\hspace{0.45em}}
+    {:}{\fontsize{17pt}{19pt}\selectfont :}
+   }
+   {\fontsize{17pt}{19pt}\selectfont #1}
+ }
+\ExplSyntaxOff
+
+%------------------------------
+% Configurando fuentes y márgenes
+%------------------------------
+\renewcommand{\familydefault}{\sfdefault}
+
+\AtBeginDocument{%
+  \SetMathAlphabet{\mathrm}{normal}{T1}{lmr}{m}{n}
+  \SetMathAlphabet{\mathbf}{normal}{T1}{lmr}{b}{n}
+  \SetMathAlphabet{\mathit}{normal}{T1}{lmr}{m}{it}
+  \SetMathAlphabet{\mathtt}{normal}{T1}{lmtt}{m}{n}
+}
+
+\geometry{margin=2cm}
+
+%------------------------------
+% Definiendo colores
+%------------------------------
+\definecolor{color1}{HTML}{4E79A7}
+\definecolor{color2}{HTML}{F28E2B}
+\definecolor{color3}{HTML}{E15759}
+\definecolor{color4}{HTML}{76B7B2}
+\definecolor{color5}{HTML}{59A14F}
+\definecolor{color6}{HTML}{EDC948}
+
+%------------------------------
+% Configurando tcolorbox para secciones
+%------------------------------
+\tcbuselibrary{skins, breakable}
+\newtcolorbox{seccionbox}[2]{
+  colback=#1!5!white,
+  colframe=#1!90!black,
+  fonttitle=\bfseries\large,
+  title={\sffamily #2},
+  breakable,
+  enhanced,
+  boxrule=1.5pt,
+  arc=4pt,
+  attach boxed title to top left={xshift=5mm, yshift=-2mm},
+  boxed title style={
+    colback=#1!80!black,
+    arc=3pt,
+    outer arc=3pt
+  }
+}
+
+%------------------------------
+% Configurando contadores y numeración
+%------------------------------
+\newcounter{mainsec}
+\newcounter{subsec}[mainsec]
+\newcounter{subsubsec}[subsec]
+
+\newcommand{\mainnum}{\stepcounter{mainsec}\arabic{mainsec}}
+\newcommand{\subnum}{\stepcounter{subsec}\arabic{mainsec}.\arabic{subsec}}
+\newcommand{\subsubnum}{\stepcounter{subsubsec}\arabic{mainsec}.\arabic{subsec}.\arabic{subsubsec}}
+\newcommand{\numstyle}[1]{\textbf{\large #1}\quad}
+
+%------------------------------
+% Definiendo el título del documento
+%------------------------------
+\title{\vspace{-2em}%
+  \medstyledtitle{C}%
+  \smallmedstyledtitle{ÁLCULO}%
+  \hspace{0.45em}%
+  \medstyledtitle{I}%
+  \smallmedstyledtitle{NTEGRAL}%
+}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+% Sección 1: Introducción a las Integrales
+\begin{seccionbox}{color1}{\mainnum. Introducción a las Integrales}
+\vspace{0.5em}
+\numstyle{\subnum} Sumas finitas y sumas de Riemann.
+
+\numstyle{\subnum} El problema del área bajo la curva.
+
+\numstyle{\subnum} La integral definida y sus propiedades.
+
+\numstyle{\subnum} Antiderivadas e integrales indefinidas.
+
+\numstyle{\subnum} El teorema fundamental del cálculo.
+\end{seccionbox}
+
+% Sección 2: Funciones Trascendentes
+\begin{seccionbox}{color6}{\mainnum. Funciones Trascendentes}
+\vspace{0.5em}
+\numstyle{\subnum} Logaritmo natural.
+
+\numstyle{\subnum} Función exponencial.
+
+\numstyle{\subnum} Funciones trigonométricas inversas.
+
+\numstyle{\subnum} Funciones hiperbólicas.
+\end{seccionbox}
+
+% Sección 3: Técnicas de Integración
+\begin{seccionbox}{color2}{\mainnum. Técnicas de Integración}
+\vspace{0.5em}
+\numstyle{\subnum} Integración por $u$-sustitución.
+
+\numstyle{\subnum} Integración por partes.
+
+\numstyle{\subnum} Integrales trigonométricas.
+
+\numstyle{\subnum} Integración por sustitución trigonométrica.
+
+\numstyle{\subnum} Integración por fracciones parciales.
+
+\numstyle{\subnum} Sustituciones especiales.
+
+\numstyle{\subnum} Integración numérica.
+\end{seccionbox}
+
+% Sección 4: Aplicaciones de las Integrales
+\begin{seccionbox}{color3}{\mainnum. Aplicaciones de las Integrales}
+\vspace{0.5em}
+\numstyle{\subnum} Área entre dos curvas.
+
+\numstyle{\subnum} Volúmenes de sólidos de revolución.
+
+\numstyle{\subsubnum} Método de discos y arandelas.
+
+\numstyle{\subsubnum} Método de casquillos cilíndricos.
+
+\numstyle{\subnum} Longitud de curvas planas.
+
+\numstyle{\subnum} Áreas de superficies de revolución.
+\end{seccionbox}
+
+% Sección 5: Integrales Impropias
+\begin{seccionbox}{color4}{\mainnum. Integrales Impropias}
+\vspace{0.5em}
+\numstyle{\subnum} Integrales con límites infinitos.
+
+\numstyle{\subnum} Integrales con integrando no acotado.
+\end{seccionbox}
+
+% Sección 6: Sucesiones y Series
+\begin{seccionbox}{color5}{\mainnum. Sucesiones y Series}
+\vspace{0.5em}
+\numstyle{\subnum} Sucesiones numéricas.
+
+\numstyle{\subsubnum} Definición y propiedades.
+
+\numstyle{\subsubnum} Convergencia de sucesiones.
+
+\numstyle{\subnum} Series numéricas.
+
+\numstyle{\subsubnum} Definición y propiedades.
+
+\numstyle{\subsubnum} Criterios de convergencia.
+
+\numstyle{\subnum} Series de potencias.
+
+\numstyle{\subnum} Series de Taylor y MacLaurin.
+\end{seccionbox}
+
+\end{document}
