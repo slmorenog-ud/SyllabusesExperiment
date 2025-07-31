@@ -1,0 +1,162 @@
+\documentclass[12pt, a4paper, spanish]{article}
+\usepackage[spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{booktabs}
+
+\geometry{margin=2.5cm}
+
+\title{\bfseries Física General: Resumen Temas Fundamentales (Física 1)}
+\author{}
+\date{}
+
+\titleformat{\section}{\large\bfseries\filcenter}{\thesection}{1em}{}
+\titleformat{\subsection}{\bfseries}{\thesubsection}{0.5em}{}
+\titleformat{\subsubsection}{\bfseries}{\thesubsubsection}{0.5em}{}
+
+\begin{document}
+
+\maketitle
+
+% SECCIÓN 1: MAGNITUDES FÍSICAS (Syllabi: :cite[4]:cite[5])
+\section{Magnitudes Físicas y Unidades}
+\begin{itemize}
+    \item \textbf{Conversión de unidades}: Homogeneidad dimensional y factores de conversión (ej: \SI{1}{km} = \SI{1000}{m})
+    \item \textbf{Prefijos SI}: yocto (\SI{e-24}{}) a yotta (\SI{e24}{}) :cite[5]
+    \item \textbf{Unidades base SI}: 7 magnitudes fundamentales (metro, kilogramo, segundo, amperio, kelvin, mol, candela)
+    \item \textbf{Notación científica}: $N \times 10^n$ ($1 \leq |N| < 10$)
+    \item \textbf{Análisis dimensional}: Ecuación $[X] = L^a M^b T^c \Theta^d I^e N^f J^g$
+\end{itemize}
+
+% SECCIÓN 2: VECTORES (Syllabus: :cite[5])
+\section{Vectores y Sistemas de Referencia}
+\begin{itemize}
+    \item \textbf{Operaciones}:
+    \begin{align*}
+    \vec{A} + \vec{B} &= (A_x + B_x)\hat{\imath} + (A_y + B_y)\hat{\jmath} \\
+    |\vec{A}| &= \sqrt{A_x^2 + A_y^2}
+    \end{align*}
+    
+    \item \textbf{Productos}:
+    \begin{align*}
+    \text{Punto: } &\vec{A} \cdot \vec{B} = |A||B|\cos\theta \\
+    \text{Cruz: } &|\vec{A} \times \vec{B}| = |A||B|\sin\theta
+    \end{align*}
+    
+    \item \textbf{Coordenadas polares}:
+    \[
+    x = r\cos\theta, \quad y = r\sin\theta, \quad \theta = \atan2(y,x)
+    \]
+\end{itemize}
+
+% SECCIÓN 3: CINEMÁTICA (Syllabi: :cite[4]:cite[5]:cite[7])
+\section{Cinemática}
+\subsection{Movimiento Unidimensional}
+\begin{itemize}
+    \item \textbf{MRU}: $\Delta x = v \Delta t$
+    \item \textbf{MRUV}:
+    \begin{align*}
+    x(t) &= x_0 + v_0t + \frac{1}{2}at^2 \\
+    a &= \text{constante} \neq f(t)
+    \end{align*}
+    \item \textbf{Caída libre}: $a = -g \approx \SI{-9.8}{\meter\per\second\squared}$
+\end{itemize}
+
+\subsection{Movimiento Bidimensional}
+\begin{itemize}
+    \item \textbf{Componentes independientes}: $x(t)$, $y(t)$
+    \item \textbf{Proyectiles}:
+    \[
+    x = v_{0x}t, \quad y = v_{0y}t - \frac{1}{2}gt^2, \quad R_{\text{max}} = \frac{v_0^2 \sin 2\theta}{g}
+    \]
+\end{itemize}
+
+\subsection{Movimiento Circular}
+\begin{itemize}
+    \item \textbf{Aceleración centrípeta}: $a_c = \dfrac{v^2}{r} = \omega^2 r$ :cite[8]
+    \item \textbf{Fuerza centrípeta}: $F_c = m a_c$ (requerida para trayectoria circular) :cite[8]
+    \item \textbf{Periodo y frecuencia}: $T = \dfrac{1}{f} = \dfrac{2\pi}{\omega}$
+    \item \textbf{Conceptos rotacionales}:
+    \begin{itemize}
+        \item Momento angular: $\vec{L} = \vec{r} \times \vec{p}$ (conservado si $\sum \tau = 0$)
+        \item Torque: $\vec{\tau} = \vec{r} \times \vec{F}$
+    \end{itemize}
+\end{itemize}
+
+% SECCIÓN 4: LEYES DE NEWTON (Syllabi: :cite[4]:cite[6]:cite[7])
+\section{Leyes de Newton y Fuerzas}
+\subsection{Principios Fundamentales}
+\begin{enumerate}
+    \item $\sum \vec{F} = 0 \Leftrightarrow \vec{a} = 0$ (equilibrio)
+    \item $\sum \vec{F} = m\vec{a}$ (relación fuerza-aceleración)
+    \item $\vec{F}_{12} = -\vec{F}_{21}$ (pares acción-reacción)
+\end{enumerate}
+
+\subsection{Aplicaciones}
+\begin{itemize}
+    \item \textbf{Diagramas de cuerpo libre}: Esenciales para resolver problemas
+    \item \textbf{Fuerzas comunes}:
+    \begin{align*}
+    \text{Peso: } &\vec{W} = m\vec{g} \\
+    \text{Normal: } &\vec{N} \perp \text{superficie} \\
+    \text{Fricción: } &f_k = \mu_k N, \quad f_s \leq \mu_s N
+    \end{align*}
+    \item \textbf{Tensión}: Fuerza en medios flexibles (cuerdas/cables)
+\end{itemize}
+
+% SECCIÓN 5: TRABAJO Y ENERGÍA (Syllabi: :cite[5]:cite[7])
+\section{Trabajo y Energía}
+\begin{itemize}
+    \item \textbf{Trabajo}: $W = \int \vec{F} \cdot d\vec{r} = Fd\cos\theta$ (camino dependiente)
+    \item \textbf{Energías}:
+    \begin{align*}
+    \text{Cinética: } &K = \frac{1}{2}mv^2 \\
+    \text{Potencial: } &U_g = mgh, \quad U_e = \frac{1}{2}kx^2
+    \end{align*}
+    \item \textbf{Conservación}: $\Delta K + \Delta U = 0$ (sistemas conservativos)
+    \item \textbf{Potencia}: $P = \dfrac{dW}{dt}$ (medida de rapidez energética)
+\end{itemize}
+
+% SECCIÓN 6: MOMENTO LINEAL (Syllabi: :cite[3]:cite[5]:cite[7])
+\section{Cantidad de Movimiento Lineal}
+\begin{itemize}
+    \item \textbf{Momento lineal}: $\vec{p} = m\vec{v}$ (vectorial)
+    \item \textbf{Impulso}: $\vec{J} = \Delta \vec{p} = \int \vec{F} dt$ :cite[3]
+    \item \textbf{Conservación}: $\sum \vec{p}_i = \text{constante}$ (sistemas aislados)
+    \item \textbf{Choques}:
+    \begin{itemize}
+        \item Elásticos: $\Delta K = 0$, $\sum \vec{p}$ conservado
+        \item Inelásticos: $\Delta K < 0$, $\sum \vec{p}$ conservado
+    \end{itemize}
+\end{itemize}
+
+% Ejercicio modelo basado en :cite[3]
+\subsection*{Ejemplo aplicado}
+Un astronauta ($m_1 = \SI{90}{kg}$) lanza una bomba ($m_2 = \SI{360}{kg}$) con $v_2 = \SI{0.2}{m/s}$. Por conservación de momento:
+\[
+m_1 v_1 + m_2 v_2 = 0 \Rightarrow v_1 = -\frac{m_2}{m_1} v_2 = \SI{-0.8}{m/s}
+\]
+
+% Referencias a programas académicos
+\begin{table}[h]
+\centering
+\caption{Correspondencia con syllabi universitarios}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Universidad} & \textbf{Contenido equivalente} \\ \midrule
+Unicamp (F008) :cite[4] & Magnitudes, Movimientos, Leyes Newton, Energía \\
+USP (Física I) :cite[5] & Cinemática, Dinámica, Momento lineal, Trabajo \\
+Unicamp (LE201) :cite[7] & Cinemática, Leyes Newton, Conservación energía/momento \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\end{document}
