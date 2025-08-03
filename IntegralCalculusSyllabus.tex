@@ -1,19 +1,20 @@
-\documentclass[a4paper, spanish]{extarticle}
-\usepackage[spanish]{babel}
-\usepackage[T1]{fontenc}
-\usepackage{geometry}
-\usepackage{tcolorbox}
-\usepackage{xcolor}
-\usepackage{sourcesanspro}
-\usepackage{lmodern}
-\usepackage{microtype}
-\usepackage{expl3}
-\usepackage{xparse}
-\usepackage{amssymb}
+\documentclass[a4paper, spanish]{extarticle} % Clase de documento tipo artículo extendido, papel A4, idioma español
+\usepackage[spanish]{babel} % Traduce elementos automáticos al español
+\usepackage[T1]{fontenc} % Codificación de fuentes para caracteres acentuados
+\usepackage{geometry}  % Permite modificar los márgenes de la página
+\usepackage{tcolorbox} % Cajas de color personalizables (para secciones)
+\usepackage{xcolor} % Definición y uso de colores
+\usepackage{sourcesanspro} % Fuente sans-serif moderna
+\usepackage{lmodern} % Fuente Latin Modern
+\usepackage{microtype} % Mejora la tipografía (espaciado, guiones, etc.)
+\usepackage{expl3} % Sintaxis y utilidades avanzadas de LaTeX3
+\usepackage{xparse} % Definición avanzada de comandos
+\usepackage{amssymb} % Símbolos matemáticos adicionales
 
+% Modifica el tamaño y espaciado de la fuente normal del documento
 \makeatletter
 \renewcommand\normalsize{%
-   \@setfontsize\normalsize{10}{12}%  % 10pt tamaño, 12pt interlineado
+   \@setfontsize\normalsize{10}{12}%  % 10pt de tamaño, 12pt de interlineado
    \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
    \abovedisplayshortskip \z@ \@plus3\p@
    \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
@@ -22,11 +23,9 @@
 \normalsize
 \makeatother
 
-%------------------------------
-% MACRO MEJORADO: Título estilizado con números
-%------------------------------
+% --------- MACROS para títulos estilizados ---------
 \ExplSyntaxOn
-% Macro para caracteres iniciales (tamaño grande)
+% Crea títulos grandes y medianos para letras y números (usado en el título principal)
 \NewDocumentCommand{\medstyledtitle}{m}
 {
   \group_begin:
@@ -41,7 +40,7 @@
 {
   \str_case_e:nnF { \tl_upper_case:n {#1} }
   {
-    % Letras (mayúsculas y acentuadas)
+    % Definición de formato para letras, números y símbolos
     {A}{\textbf{\fontsize{24pt}{26pt}\selectfont A}}
     {B}{\textbf{\fontsize{24pt}{26pt}\selectfont B}}
     {C}{\textbf{\fontsize{24pt}{26pt}\selectfont C}}
@@ -91,10 +90,9 @@
     { }{\hspace{0.45em}}
     {:}{\fontsize{17pt}{19pt}\selectfont :}
   }
-  {\fontsize{17pt}{19pt}\selectfont #1} % Caracteres no especificados
+  {\fontsize{17pt}{19pt}\selectfont #1} % Por defecto, tamaño mediano
 }
 
-% Macro para caracteres subsiguientes (tamaño mediano)
 \NewDocumentCommand{\smallmedstyledtitle}{m}
 {
   \group_begin:
@@ -159,22 +157,22 @@
     { }{\hspace{0.45em}}
     {:}{\fontsize{17pt}{19pt}\selectfont :}
   }
-  {\fontsize{17pt}{19pt}\selectfont #1} % Caracteres no especificados
+  {\fontsize{17pt}{19pt}\selectfont #1}
 }
 \ExplSyntaxOff
 
-%------------------------------
-% RESTANTE DE LA CONFIGURACIÓN
-%------------------------------
-\renewcommand{\familydefault}{\sfdefault}
+% --------- Configuración tipográfica general ---------
+\renewcommand{\familydefault}{\sfdefault} % Fuente sans-serif por defecto
 \AtBeginDocument{%
-  \SetMathAlphabet{\mathrm}{normal}{T1}{lmr}{m}{n}
+  \SetMathAlphabet{\mathrm}{normal}{T1}{lmr}{m}{n}   % Configuración de fuentes matemáticas
   \SetMathAlphabet{\mathbf}{normal}{T1}{lmr}{b}{n}
   \SetMathAlphabet{\mathit}{normal}{T1}{lmr}{m}{it}
   \SetMathAlphabet{\mathtt}{normal}{T1}{lmtt}{m}{n}
 }
 
-\geometry{margin=2cm}
+\geometry{margin=2cm} % Márgenes de 2cm en toda la página
+
+% Definición de colores personalizados para las cajas de secciones
 \definecolor{color1}{HTML}{4E79A7}
 \definecolor{color2}{HTML}{F28E2B}
 \definecolor{color3}{HTML}{E15759}
@@ -182,16 +180,17 @@
 \definecolor{color5}{HTML}{EDC948}
 \definecolor{color6}{HTML}{F28E2B}
 
+% Configuración de la caja de sección personalizada usando tcolorbox
 \tcbuselibrary{skins, breakable}
 \newtcolorbox{seccionbox}[2]{
-  colback=#1!5!white,
-  colframe=#1!90!black,
-  fonttitle=\bfseries\large,
-  title={\sffamily #2},
+  colback=#1!5!white, % Color de fondo suave
+  colframe=#1!90!black, % Borde oscuro del mismo color
+  fonttitle=\bfseries\large, % Fuente del título en negrita y grande
+  title={\sffamily #2}, % Título en sans-serif
   breakable,
   enhanced,
-  boxrule=1.5pt,
-  arc=4pt,
+  boxrule=1.5pt, % Grosor del borde
+  arc=4pt, % Esquinas redondeadas
   attach boxed title to top left={xshift=5mm, yshift=-2mm},
   boxed title style={
     colback=#1!80!black,
@@ -200,20 +199,19 @@
   }
 }
 
-% Definición de contadores
+% --------- Contadores y comandos para numeración automática de secciones ---------
 \newcounter{mainsec}
 \newcounter{subsec}[mainsec]
 \newcounter{subsubsec}[subsec]
 \newcounter{subsubsubsec}[subsubsec]
 
-% Comandos de numeración
 \newcommand{\mainnum}{\stepcounter{mainsec}\arabic{mainsec}}
 \newcommand{\subnum}{\stepcounter{subsec}\arabic{mainsec}.\arabic{subsec}}
 \newcommand{\subsubnum}{\stepcounter{subsubsec}\arabic{mainsec}.\arabic{subsec}.\arabic{subsubsec}}
 \newcommand{\subsubsubnum}{\stepcounter{subsubsubsec}\arabic{mainsec}.\arabic{subsec}.\arabic{subsubsec}.\arabic{subsubsubsec}}
-\newcommand{\numstyle}[1]{\textbf{\large #1}\quad}
+\newcommand{\numstyle}[1]{\textbf{\large #1}\quad} % Estilo destacado para la numeración
 
-% TÍTULO CON NÚMERO (ej: "Cálculo Integral")
+% --------- Título personalizado con letras grandes ---------
 \title{\vspace{-2em}%
   \medstyledtitle{C}%
   \smallmedstyledtitle{ÁLCULO}%
