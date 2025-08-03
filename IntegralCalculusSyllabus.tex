@@ -1,37 +1,47 @@
-\documentclass[16pt, a4paper, spanish]{extarticle}
+\documentclass[a4paper, spanish]{extarticle}
 \usepackage[spanish]{babel}
-\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{geometry}
 \usepackage{tcolorbox}
 \usepackage{xcolor}
-\usepackage{etoolbox}
 \usepackage{sourcesanspro}
 \usepackage{lmodern}
 \usepackage{microtype}
-\usepackage{graphicx}
 \usepackage{expl3}
 \usepackage{xparse}
-\usepackage{xstring}
+\usepackage{amssymb}
+
+\makeatletter
+\renewcommand\normalsize{%
+   \@setfontsize\normalsize{10}{12}%  % 10pt tamaño, 12pt interlineado
+   \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
+   \abovedisplayshortskip \z@ \@plus3\p@
+   \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
+   \belowdisplayskip \abovedisplayskip
+   \let\@listi\@listI}
+\normalsize
+\makeatother
 
 %------------------------------
-% Configurando macros para títulos estilizados
+% MACRO MEJORADO: Título estilizado con números
 %------------------------------
 \ExplSyntaxOn
+% Macro para caracteres iniciales (tamaño grande)
 \NewDocumentCommand{\medstyledtitle}{m}
- {
+{
   \group_begin:
   \str_map_inline:nn {#1}
-   {
+  {
     \__medstyledtitle_process:n {##1}
-   }
+  }
   \group_end:
- }
+}
 
 \cs_new_protected:Nn \__medstyledtitle_process:n
- {
+{
   \str_case_e:nnF { \tl_upper_case:n {#1} }
-   {
+  {
+    % Letras (mayúsculas y acentuadas)
     {A}{\textbf{\fontsize{24pt}{26pt}\selectfont A}}
     {B}{\textbf{\fontsize{24pt}{26pt}\selectfont B}}
     {C}{\textbf{\fontsize{24pt}{26pt}\selectfont C}}
@@ -64,26 +74,42 @@
     {Ó}{\textbf{\fontsize{24pt}{26pt}\selectfont Ó}}
     {Ú}{\textbf{\fontsize{24pt}{26pt}\selectfont Ú}}
     {Ñ}{\textbf{\fontsize{24pt}{26pt}\selectfont Ñ}}
+    
+    % Números (0-9)
+    {0}{\textbf{\fontsize{24pt}{26pt}\selectfont 0}}
+    {1}{\textbf{\fontsize{24pt}{26pt}\selectfont 1}}
+    {2}{\textbf{\fontsize{24pt}{26pt}\selectfont 2}}
+    {3}{\textbf{\fontsize{24pt}{26pt}\selectfont 3}}
+    {4}{\textbf{\fontsize{24pt}{26pt}\selectfont 4}}
+    {5}{\textbf{\fontsize{24pt}{26pt}\selectfont 5}}
+    {6}{\textbf{\fontsize{24pt}{26pt}\selectfont 6}}
+    {7}{\textbf{\fontsize{24pt}{26pt}\selectfont 7}}
+    {8}{\textbf{\fontsize{24pt}{26pt}\selectfont 8}}
+    {9}{\textbf{\fontsize{24pt}{26pt}\selectfont 9}}
+    
+    % Símbolos especiales
     { }{\hspace{0.45em}}
     {:}{\fontsize{17pt}{19pt}\selectfont :}
-   }
-   {\fontsize{17pt}{19pt}\selectfont #1}
- }
+  }
+  {\fontsize{17pt}{19pt}\selectfont #1} % Caracteres no especificados
+}
 
+% Macro para caracteres subsiguientes (tamaño mediano)
 \NewDocumentCommand{\smallmedstyledtitle}{m}
- {
+{
   \group_begin:
   \str_map_inline:nn {#1}
-   {
+  {
     \__smallmedstyledtitle_process:n {##1}
-   }
+  }
   \group_end:
- }
+}
 
 \cs_new_protected:Nn \__smallmedstyledtitle_process:n
- {
+{
   \str_case_e:nnF { \tl_upper_case:n {#1} }
-   {
+  {
+    % Letras (mayúsculas y acentuadas)
     {A}{\textbf{\fontsize{19pt}{21pt}\selectfont A}}
     {B}{\textbf{\fontsize{19pt}{21pt}\selectfont B}}
     {C}{\textbf{\fontsize{19pt}{21pt}\selectfont C}}
@@ -116,18 +142,31 @@
     {Ó}{\textbf{\fontsize{19pt}{21pt}\selectfont Ó}}
     {Ú}{\textbf{\fontsize{19pt}{21pt}\selectfont Ú}}
     {Ñ}{\textbf{\fontsize{19pt}{21pt}\selectfont Ñ}}
+    
+    % Números (0-9)
+    {0}{\textbf{\fontsize{19pt}{21pt}\selectfont 0}}
+    {1}{\textbf{\fontsize{19pt}{21pt}\selectfont 1}}
+    {2}{\textbf{\fontsize{19pt}{21pt}\selectfont 2}}
+    {3}{\textbf{\fontsize{19pt}{21pt}\selectfont 3}}
+    {4}{\textbf{\fontsize{19pt}{21pt}\selectfont 4}}
+    {5}{\textbf{\fontsize{19pt}{21pt}\selectfont 5}}
+    {6}{\textbf{\fontsize{19pt}{21pt}\selectfont 6}}
+    {7}{\textbf{\fontsize{19pt}{21pt}\selectfont 7}}
+    {8}{\textbf{\fontsize{19pt}{21pt}\selectfont 8}}
+    {9}{\textbf{\fontsize{19pt}{21pt}\selectfont 9}}
+    
+    % Símbolos especiales
     { }{\hspace{0.45em}}
     {:}{\fontsize{17pt}{19pt}\selectfont :}
-   }
-   {\fontsize{17pt}{19pt}\selectfont #1}
- }
+  }
+  {\fontsize{17pt}{19pt}\selectfont #1} % Caracteres no especificados
+}
 \ExplSyntaxOff
 
 %------------------------------
-% Configurando fuentes y márgenes
+% RESTANTE DE LA CONFIGURACIÓN
 %------------------------------
 \renewcommand{\familydefault}{\sfdefault}
-
 \AtBeginDocument{%
   \SetMathAlphabet{\mathrm}{normal}{T1}{lmr}{m}{n}
   \SetMathAlphabet{\mathbf}{normal}{T1}{lmr}{b}{n}
@@ -136,20 +175,13 @@
 }
 
 \geometry{margin=2cm}
-
-%------------------------------
-% Definiendo colores
-%------------------------------
 \definecolor{color1}{HTML}{4E79A7}
 \definecolor{color2}{HTML}{F28E2B}
 \definecolor{color3}{HTML}{E15759}
-\definecolor{color4}{HTML}{76B7B2}
-\definecolor{color5}{HTML}{59A14F}
-\definecolor{color6}{HTML}{EDC948}
+\definecolor{color4}{HTML}{59A14F}
+\definecolor{color5}{HTML}{EDC948}
+\definecolor{color6}{HTML}{F28E2B}
 
-%------------------------------
-% Configurando tcolorbox para secciones
-%------------------------------
 \tcbuselibrary{skins, breakable}
 \newtcolorbox{seccionbox}[2]{
   colback=#1!5!white,
@@ -168,21 +200,20 @@
   }
 }
 
-%------------------------------
-% Configurando contadores y numeración
-%------------------------------
+% Definición de contadores
 \newcounter{mainsec}
 \newcounter{subsec}[mainsec]
 \newcounter{subsubsec}[subsec]
+\newcounter{subsubsubsec}[subsubsec]
 
+% Comandos de numeración
 \newcommand{\mainnum}{\stepcounter{mainsec}\arabic{mainsec}}
 \newcommand{\subnum}{\stepcounter{subsec}\arabic{mainsec}.\arabic{subsec}}
 \newcommand{\subsubnum}{\stepcounter{subsubsec}\arabic{mainsec}.\arabic{subsec}.\arabic{subsubsec}}
+\newcommand{\subsubsubnum}{\stepcounter{subsubsubsec}\arabic{mainsec}.\arabic{subsec}.\arabic{subsubsec}.\arabic{subsubsubsec}}
 \newcommand{\numstyle}[1]{\textbf{\large #1}\quad}
 
-%------------------------------
-% Definiendo el título del documento
-%------------------------------
+% TÍTULO CON NÚMERO (ej: "Cálculo Integral")
 \title{\vspace{-2em}%
   \medstyledtitle{C}%
   \smallmedstyledtitle{ÁLCULO}%
@@ -194,95 +225,125 @@
 \date{}
 
 \begin{document}
-
 \maketitle
 
-% Sección 1: Introducción a las Integrales
-\begin{seccionbox}{color1}{\mainnum. Introducción a las Integrales}
+% Reinicio de contadores
+\setcounter{mainsec}{0}
+\setcounter{subsec}{0}
+\setcounter{subsubsec}{0}
+\setcounter{subsubsubsec}{0}
+
+% ================= SECCIÓN 1 =================
+\begin{seccionbox}{color1}{\mainnum. Introducción a la Integración}
 \vspace{0.5em}
-\numstyle{\subnum} Sumas finitas y sumas de Riemann.
+\numstyle{\subnum} El problema del área bajo la curva:\par
+\numstyle{\subsubnum} Sumatorias finitas:\par
+\numstyle{\subsubsubnum} Propiedades de las sumatorias finitas.\par
+\numstyle{\subsubsubnum} Aproximaciones inferior, superior y media.\par
+\numstyle{\subsubnum} Sumas de Riemann:\par
+\numstyle{\subsubnum} Definición de la integral definida como límite de sumas de Riemann.\par
 
-\numstyle{\subnum} El problema del área bajo la curva.
+\numstyle{\subnum} La integral definida:\par
+\numstyle{\subsubnum} Propiedades de la integral definida.\par
+\numstyle{\subsubsubnum} En funciones pares e impares.\par
+\numstyle{\subsubnum} Teorema del Valor Medio para integrales.\par
 
-\numstyle{\subnum} La integral definida y sus propiedades.
-
-\numstyle{\subnum} Antiderivadas e integrales indefinidas.
-
-\numstyle{\subnum} El teorema fundamental del cálculo.
+\numstyle{\subnum} La integral indefinida:\par
+\numstyle{\subsubnum} Antiderivadas o primitivas de una función.\par
+\numstyle{\subsubnum} Reglas básicas de integración.\par
+\numstyle{\subsubnum} Integrales de funciones elementales.\par
+\numstyle{\subsubnum} Integrales de funciones más específicas:\par
+\numstyle{\subsubsubnum} Logaritmo natural y función exponencial.\par
+\numstyle{\subsubsubnum} Funciones trigonométricas inversas e hiperbólicas.\par
+\numstyle{\subnum} El Teorema Fundamental del Cálculo:\par
+\numstyle{\subsubnum} Primera parte (relación entre derivadas e integrales).\par
+\numstyle{\subsubnum} Segunda parte (cálculo de integrales definidas).\par
 \end{seccionbox}
 
-% Sección 2: Funciones Trascendentes
-\begin{seccionbox}{color6}{\mainnum. Funciones Trascendentes}
-\vspace{0.5em}
-\numstyle{\subnum} Logaritmo natural.
-
-\numstyle{\subnum} Función exponencial.
-
-\numstyle{\subnum} Funciones trigonométricas inversas.
-
-\numstyle{\subnum} Funciones hiperbólicas.
-\end{seccionbox}
-
-% Sección 3: Técnicas de Integración
+% ================= SECCIÓN 2 =================
+\setcounter{subsec}{0}
+\setcounter{subsubsec}{0}
 \begin{seccionbox}{color2}{\mainnum. Técnicas de Integración}
 \vspace{0.5em}
-\numstyle{\subnum} Integración por $u$-sustitución.
-
-\numstyle{\subnum} Integración por partes.
-
-\numstyle{\subnum} Integrales trigonométricas.
-
-\numstyle{\subnum} Integración por sustitución trigonométrica.
-
-\numstyle{\subnum} Integración por fracciones parciales.
-
-\numstyle{\subnum} Sustituciones especiales.
-
-\numstyle{\subnum} Integración numérica.
+\numstyle{\subnum} Integración por $u$-sustitución (cambio de variable).\par
+\numstyle{\subnum} Integración por partes:\par
+\numstyle{\subsubnum} Fórmula, ejemplos y aplicaciones iterativas.\par
+\numstyle{\subsubnum} Regla ILATE.\par
+\numstyle{\subnum} Integrales trigonométricas:\par
+\numstyle{\subsubnum} Productos de potencias de senos y cosenos.\par
+\numstyle{\subsubnum} Otras identidades trigonométricas.\par
+\numstyle{\subnum} Sustitución trigonométrica:\par
+\numstyle{\subsubnum} Para $\sqrt{a^2 - x^2}$, $x = a\sin(\theta)$.\par
+\numstyle{\subsubnum} Para $\sqrt{x^2 - a^2}$, $x = a\sec(\theta)$.\par
+\numstyle{\subsubnum} Para $\sqrt{a^2 + x^2}$, $x = a\tan(\theta)$.\par
+\numstyle{\subsubnum} Uso de triángulos rectángulos para generar la sustitución.\par
+\numstyle{\subnum} Integración por fracciones parciales:\par
+\numstyle{\subsubnum} Denominadores lineales y lineales repetidos.\par
+\numstyle{\subsubnum} Denominadores cuadráticos y cuadráticos repetidos.\par
+\numstyle{\subnum} Sustituciones especiales:\par
+\numstyle{\subsubnum} Sustitución Universal (de Weierstrass), $\tan \left( \frac{\theta}{2} \right)$.\par
+\numstyle{\subnum} Integración numérica:\par
+\numstyle{\subsubnum} Regla del Trapecio y de Simpson.\par
+\numstyle{\subsubnum} Estimación del error.\par
 \end{seccionbox}
 
-% Sección 4: Aplicaciones de las Integrales
-\begin{seccionbox}{color3}{\mainnum. Aplicaciones de las Integrales}
+% ================= SECCIÓN 3 =================
+\setcounter{subsec}{0}
+\setcounter{subsubsec}{0}
+\begin{seccionbox}{color3}{\mainnum. Aplicaciones de la Integración}
 \vspace{0.5em}
-\numstyle{\subnum} Área entre dos curvas.
+\numstyle{\subnum} Área entre curvas:\par
+\numstyle{\subsubnum} Integración con respecto a $x$ y $y$.\par
+\numstyle{\subsubnum} Casos con corrimientos (ejes no necesariamente $x=0$ o $y=0$).\par
+\numstyle{\subnum} Volúmenes de sólidos de revolución:\par
+\numstyle{\subsubnum} Método de discos y arandelas.\par
+\numstyle{\subsubnum} Método de cascarones cilíndricos.\par
+\numstyle{\subsubnum} Alrededor de ejes arbitrarios.\par
+\numstyle{\subnum} Longitud de arco de curvas planas.\par
+\numstyle{\subnum} Áreas de superficies de revolución.\par
+\numstyle{\subnum} Otras aplicaciones:\par
+\numstyle{\subsubnum} Funciones de densidad de probabilidad y valor esperado.\par
+\numstyle{\subsubnum} Momentos, centros de masa y centroides.\par
+\numstyle{\subsubsubnum} Teorema de Pappus.\par
+\numstyle{\subsubnum} Trabajo y fuerza de fluidos.\par
 
-\numstyle{\subnum} Volúmenes de sólidos de revolución.
-
-\numstyle{\subsubnum} Método de discos y arandelas.
-
-\numstyle{\subsubnum} Método de casquillos cilíndricos.
-
-\numstyle{\subnum} Longitud de curvas planas.
-
-\numstyle{\subnum} Áreas de superficies de revolución.
 \end{seccionbox}
 
-% Sección 5: Integrales Impropias
+% ================= SECCIÓN 4 =================
+\setcounter{subsec}{0}
+\setcounter{subsubsec}{0}
 \begin{seccionbox}{color4}{\mainnum. Integrales Impropias}
 \vspace{0.5em}
-\numstyle{\subnum} Integrales con límites infinitos.
-
-\numstyle{\subnum} Integrales con integrando no acotado.
+\numstyle{\subnum} Integrales con límites infinitos:\par
+\numstyle{\subsubnum} Evaluación mediante límites.\par
+\numstyle{\subsubnum} Criterios de convergencia (comparación, límite comparado).\par
+\numstyle{\subnum} Integrales con integrando no acotado:\par
+\numstyle{\subsubnum} Integrales con discontinuidades.\par
+\numstyle{\subsubnum} Criterios de convergencia.\par
 \end{seccionbox}
 
-% Sección 6: Sucesiones y Series
+% ================= SECCIÓN 5 =================
+\setcounter{subsec}{0}
+\setcounter{subsubsec}{0}
 \begin{seccionbox}{color5}{\mainnum. Sucesiones y Series}
 \vspace{0.5em}
-\numstyle{\subnum} Sucesiones numéricas.
-
-\numstyle{\subsubnum} Definición y propiedades.
-
-\numstyle{\subsubnum} Convergencia de sucesiones.
-
-\numstyle{\subnum} Series numéricas.
-
-\numstyle{\subsubnum} Definición y propiedades.
-
-\numstyle{\subsubnum} Criterios de convergencia.
-
-\numstyle{\subnum} Series de potencias.
-
-\numstyle{\subnum} Series de Taylor y MacLaurin.
+\numstyle{\subnum} Sucesiones numéricas:\par
+\numstyle{\subsubnum} Definición y propiedades.\par
+\numstyle{\subsubnum} Límites de sucesiones.\par
+\numstyle{\subsubnum} Convergencia y divergencia.\par
+\numstyle{\subnum} Series numéricas:\par
+\numstyle{\subsubnum} Definición y propiedades.\par
+\numstyle{\subsubnum} Series geométricas y armónicas.\par
+\numstyle{\subsubnum} Pruebas de convergencia: divergencia, comparación, cociente, raíz, integral.\par
+\numstyle{\subsubnum} Series alternantes y convergencia absoluta.\par
+\numstyle{\subnum} Series de potencias:\par
+\numstyle{\subsubnum} Radio e intervalo de convergencia.\par
+\numstyle{\subsubnum} Diferenciación e integración término a término.\par
+\numstyle{\subnum} Series de Taylor y MacLaurin:\par
+\numstyle{\subsubnum} Aproximación de funciones.\par
+\numstyle{\subsubnum} Series de Taylor alrededor de un punto $c$.\par
+\numstyle{\subsubnum} Series de MacLaurin $(c=0)$.\par
+\numstyle{\subsubnum} Aplicaciones y estimación del error.\par
 \end{seccionbox}
 
 \end{document}
