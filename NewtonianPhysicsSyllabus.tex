@@ -1,162 +1,374 @@
-\documentclass[12pt, a4paper, spanish]{article}
-\usepackage[spanish]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{amsmath}
-\usepackage{amsfonts}
-\usepackage{amssymb}
-\usepackage{graphicx}
-\usepackage{geometry}
-\usepackage{physics}
-\usepackage{siunitx}
-\usepackage{enumitem}
-\usepackage{titlesec}
-\usepackage{booktabs}
+\documentclass[a4paper, spanish]{extarticle} % Clase de documento tipo artículo extendido, papel A4, idioma español
+\usepackage[spanish]{babel} % Traduce elementos automáticos al español
+\usepackage[T1]{fontenc} % Codificación de fuentes para caracteres acentuados
+\usepackage{geometry}  % Permite modificar los márgenes de la página
+\usepackage{tcolorbox} % Cajas de color personalizables (para secciones)
+\usepackage{xcolor} % Definición y uso de colores
+\usepackage{sourcesanspro} % Fuente sans-serif moderna
+\usepackage{lmodern} % Fuente Latin Modern
+\usepackage{microtype} % Mejora la tipografía (espaciado, guiones, etc.)
+\usepackage{expl3} % Sintaxis y utilidades avanzadas de LaTeX3
+\usepackage{xparse} % Definición avanzada de comandos
+\usepackage{amssymb} % Símbolos matemáticos adicionales
 
-\geometry{margin=2.5cm}
+% Modifica el tamaño y espaciado de la fuente normal del documento
+\makeatletter
+\renewcommand\normalsize{%
+   \@setfontsize\normalsize{10}{12}%  % 10pt de tamaño, 12pt de interlineado
+   \abovedisplayskip 10\p@ \@plus2\p@ \@minus5\p@
+   \abovedisplayshortskip \z@ \@plus3\p@
+   \belowdisplayshortskip 6\p@ \@plus3\p@ \@minus3\p@
+   \belowdisplayskip \abovedisplayskip
+   \let\@listi\@listI}
+\normalsize
+\makeatother
 
-\title{\bfseries Física General: Resumen Temas Fundamentales (Física 1)}
+% --------- MACROS para títulos estilizados ---------
+\ExplSyntaxOn
+% Crea títulos grandes y medianos para letras y números (usado en el título principal)
+\NewDocumentCommand{\medstyledtitle}{m}
+{
+  \group_begin:
+  \str_map_inline:nn {#1}
+  {
+    \__medstyledtitle_process:n {##1}
+  }
+  \group_end:
+}
+
+\cs_new_protected:Nn \__medstyledtitle_process:n
+{
+  \str_case_e:nnF { \tl_upper_case:n {#1} }
+  {
+    % Definición de formato para letras, números y símbolos
+    {A}{\textbf{\fontsize{24pt}{26pt}\selectfont A}}
+    {B}{\textbf{\fontsize{24pt}{26pt}\selectfont B}}
+    {C}{\textbf{\fontsize{24pt}{26pt}\selectfont C}}
+    {D}{\textbf{\fontsize{24pt}{26pt}\selectfont D}}
+    {E}{\textbf{\fontsize{24pt}{26pt}\selectfont E}}
+    {F}{\textbf{\fontsize{24pt}{26pt}\selectfont F}}
+    {G}{\textbf{\fontsize{24pt}{26pt}\selectfont G}}
+    {H}{\textbf{\fontsize{24pt}{26pt}\selectfont H}}
+    {I}{\textbf{\fontsize{24pt}{26pt}\selectfont I}}
+    {J}{\textbf{\fontsize{24pt}{26pt}\selectfont J}}
+    {K}{\textbf{\fontsize{24pt}{26pt}\selectfont K}}
+    {L}{\textbf{\fontsize{24pt}{26pt}\selectfont L}}
+    {M}{\textbf{\fontsize{24pt}{26pt}\selectfont M}}
+    {N}{\textbf{\fontsize{24pt}{26pt}\selectfont N}}
+    {O}{\textbf{\fontsize{24pt}{26pt}\selectfont O}}
+    {P}{\textbf{\fontsize{24pt}{26pt}\selectfont P}}
+    {Q}{\textbf{\fontsize{24pt}{26pt}\selectfont Q}}
+    {R}{\textbf{\fontsize{24pt}{26pt}\selectfont R}}
+    {S}{\textbf{\fontsize{24pt}{26pt}\selectfont S}}
+    {T}{\textbf{\fontsize{24pt}{26pt}\selectfont T}}
+    {U}{\textbf{\fontsize{24pt}{26pt}\selectfont U}}
+    {V}{\textbf{\fontsize{24pt}{26pt}\selectfont V}}
+    {W}{\textbf{\fontsize{24pt}{26pt}\selectfont W}}
+    {X}{\textbf{\fontsize{24pt}{26pt}\selectfont X}}
+    {Y}{\textbf{\fontsize{24pt}{26pt}\selectfont Y}}
+    {Z}{\textbf{\fontsize{24pt}{26pt}\selectfont Z}}
+    {Á}{\textbf{\fontsize{24pt}{26pt}\selectfont Á}}
+    {É}{\textbf{\fontsize{24pt}{26pt}\selectfont É}}
+    {Í}{\textbf{\fontsize{24pt}{26pt}\selectfont Í}}
+    {Ó}{\textbf{\fontsize{24pt}{26pt}\selectfont Ó}}
+    {Ú}{\textbf{\fontsize{24pt}{26pt}\selectfont Ú}}
+    {Ñ}{\textbf{\fontsize{24pt}{26pt}\selectfont Ñ}}
+    
+    % Números (0-9)
+    {0}{\textbf{\fontsize{24pt}{26pt}\selectfont 0}}
+    {1}{\textbf{\fontsize{24pt}{26pt}\selectfont 1}}
+    {2}{\textbf{\fontsize{24pt}{26pt}\selectfont 2}}
+    {3}{\textbf{\fontsize{24pt}{26pt}\selectfont 3}}
+    {4}{\textbf{\fontsize{24pt}{26pt}\selectfont 4}}
+    {5}{\textbf{\fontsize{24pt}{26pt}\selectfont 5}}
+    {6}{\textbf{\fontsize{24pt}{26pt}\selectfont 6}}
+    {7}{\textbf{\fontsize{24pt}{26pt}\selectfont 7}}
+    {8}{\textbf{\fontsize{24pt}{26pt}\selectfont 8}}
+    {9}{\textbf{\fontsize{24pt}{26pt}\selectfont 9}}
+    
+    % Símbolos especiales
+    { }{\hspace{0.45em}}
+    {:}{\fontsize{17pt}{19pt}\selectfont :}
+  }
+  {\fontsize{17pt}{19pt}\selectfont #1} % Por defecto, tamaño mediano
+}
+
+\NewDocumentCommand{\smallmedstyledtitle}{m}
+{
+  \group_begin:
+  \str_map_inline:nn {#1}
+  {
+    \__smallmedstyledtitle_process:n {##1}
+  }
+  \group_end:
+}
+
+\cs_new_protected:Nn \__smallmedstyledtitle_process:n
+{
+  \str_case_e:nnF { \tl_upper_case:n {#1} }
+  {
+    % Letras (mayúsculas y acentuadas)
+    {A}{\textbf{\fontsize{19pt}{21pt}\selectfont A}}
+    {B}{\textbf{\fontsize{19pt}{21pt}\selectfont B}}
+    {C}{\textbf{\fontsize{19pt}{21pt}\selectfont C}}
+    {D}{\textbf{\fontsize{19pt}{21pt}\selectfont D}}
+    {E}{\textbf{\fontsize{19pt}{21pt}\selectfont E}}
+    {F}{\textbf{\fontsize{19pt}{21pt}\selectfont F}}
+    {G}{\textbf{\fontsize{19pt}{21pt}\selectfont G}}
+    {H}{\textbf{\fontsize{19pt}{21pt}\selectfont H}}
+    {I}{\textbf{\fontsize{19pt}{21pt}\selectfont I}}
+    {J}{\textbf{\fontsize{19pt}{21pt}\selectfont J}}
+    {K}{\textbf{\fontsize{19pt}{21pt}\selectfont K}}
+    {L}{\textbf{\fontsize{19pt}{21pt}\selectfont L}}
+    {M}{\textbf{\fontsize{19pt}{21pt}\selectfont M}}
+    {N}{\textbf{\fontsize{19pt}{21pt}\selectfont N}}
+    {O}{\textbf{\fontsize{19pt}{21pt}\selectfont O}}
+    {P}{\textbf{\fontsize{19pt}{21pt}\selectfont P}}
+    {Q}{\textbf{\fontsize{19pt}{21pt}\selectfont Q}}
+    {R}{\textbf{\fontsize{19pt}{21pt}\selectfont R}}
+    {S}{\textbf{\fontsize{19pt}{21pt}\selectfont S}}
+    {T}{\textbf{\fontsize{19pt}{21pt}\selectfont T}}
+    {U}{\textbf{\fontsize{19pt}{21pt}\selectfont U}}
+    {V}{\textbf{\fontsize{19pt}{21pt}\selectfont V}}
+    {W}{\textbf{\fontsize{19pt}{21pt}\selectfont W}}
+    {X}{\textbf{\fontsize{19pt}{21pt}\selectfont X}}
+    {Y}{\textbf{\fontsize{19pt}{21pt}\selectfont Y}}
+    {Z}{\textbf{\fontsize{19pt}{21pt}\selectfont Z}}
+    {Á}{\textbf{\fontsize{19pt}{21pt}\selectfont Á}}
+    {É}{\textbf{\fontsize{19pt}{21pt}\selectfont É}}
+    {Í}{\textbf{\fontsize{19pt}{21pt}\selectfont Í}}
+    {Ó}{\textbf{\fontsize{19pt}{21pt}\selectfont Ó}}
+    {Ú}{\textbf{\fontsize{19pt}{21pt}\selectfont Ú}}
+    {Ñ}{\textbf{\fontsize{19pt}{21pt}\selectfont Ñ}}
+    
+    % Números (0-9)
+    {0}{\textbf{\fontsize{19pt}{21pt}\selectfont 0}}
+    {1}{\textbf{\fontsize{19pt}{21pt}\selectfont 1}}
+    {2}{\textbf{\fontsize{19pt}{21pt}\selectfont 2}}
+    {3}{\textbf{\fontsize{19pt}{21pt}\selectfont 3}}
+    {4}{\textbf{\fontsize{19pt}{21pt}\selectfont 4}}
+    {5}{\textbf{\fontsize{19pt}{21pt}\selectfont 5}}
+    {6}{\textbf{\fontsize{19pt}{21pt}\selectfont 6}}
+    {7}{\textbf{\fontsize{19pt}{21pt}\selectfont 7}}
+    {8}{\textbf{\fontsize{19pt}{21pt}\selectfont 8}}
+    {9}{\textbf{\fontsize{19pt}{21pt}\selectfont 9}}
+    
+    % Símbolos especiales
+    { }{\hspace{0.45em}}
+    {:}{\fontsize{17pt}{19pt}\selectfont :}
+  }
+  {\fontsize{17pt}{19pt}\selectfont #1}
+}
+\ExplSyntaxOff
+
+% --------- Configuración tipográfica general ---------
+\renewcommand{\familydefault}{\sfdefault} % Fuente sans-serif por defecto
+\AtBeginDocument{%
+  \SetMathAlphabet{\mathrm}{normal}{T1}{lmr}{m}{n}   % Configuración de fuentes matemáticas
+  \SetMathAlphabet{\mathbf}{normal}{T1}{lmr}{b}{n}
+  \SetMathAlphabet{\mathit}{normal}{T1}{lmr}{m}{it}
+  \SetMathAlphabet{\mathtt}{normal}{T1}{lmtt}{m}{n}
+}
+
+\geometry{margin=2cm} % Márgenes de 2cm en toda la página
+
+% Definición de colores personalizados para las cajas de secciones
+\definecolor{color1}{HTML}{4E79A7}
+\definecolor{color2}{HTML}{F28E2B}
+\definecolor{color3}{HTML}{E15759}
+\definecolor{color4}{HTML}{59A14F}
+\definecolor{color5}{HTML}{EDC948}
+\definecolor{color6}{HTML}{F28E2B}
+
+% Configuración de la caja de sección personalizada usando tcolorbox
+\tcbuselibrary{skins, breakable}
+\newtcolorbox{seccionbox}[2]{
+  colback=#1!5!white, % Color de fondo suave
+  colframe=#1!90!black, % Borde oscuro del mismo color
+  fonttitle=\bfseries\large, % Fuente del título en negrita y grande
+  title={\sffamily #2}, % Título en sans-serif
+  breakable,
+  enhanced,
+  boxrule=1.5pt, % Grosor del borde
+  arc=4pt, % Esquinas redondeadas
+  attach boxed title to top left={xshift=5mm, yshift=-2mm},
+  boxed title style={
+    colback=#1!80!black,
+    arc=3pt,
+    outer arc=3pt
+  }
+}
+
+% --------- Contadores y comandos para numeración automática de secciones ---------
+\newcounter{mainsec}
+\newcounter{subsec}[mainsec]
+\newcounter{subsubsec}[subsec]
+\newcounter{subsubsubsec}[subsubsec]
+
+\newcommand{\mainnum}{\stepcounter{mainsec}\arabic{mainsec}}
+\newcommand{\subnum}{\stepcounter{subsec}\arabic{mainsec}.\arabic{subsec}}
+\newcommand{\subsubnum}{\stepcounter{subsubsec}\arabic{mainsec}.\arabic{subsec}.\arabic{subsubsec}}
+\newcommand{\subsubsubnum}{\stepcounter{subsubsubsec}\arabic{mainsec}.\arabic{subsec}.\arabic{subsubsec}.\arabic{subsubsubsec}}
+\newcommand{\numstyle}[1]{\textbf{\large #1}\quad} % Estilo destacado para la numeración
+
+% --------- Título personalizado con letras grandes ---------
+\title{\vspace{-2em}%
+  \medstyledtitle{F}%
+  \smallmedstyledtitle{ÍSICA}%
+  \hspace{0.45em}%
+  \medstyledtitle{N}%
+  \smallmedstyledtitle{EWTONIANA}%
+}
 \author{}
 \date{}
 
-\titleformat{\section}{\large\bfseries\filcenter}{\thesection}{1em}{}
-\titleformat{\subsection}{\bfseries}{\thesubsection}{0.5em}{}
-\titleformat{\subsubsection}{\bfseries}{\thesubsubsection}{0.5em}{}
-
 \begin{document}
-
 \maketitle
 
-% SECCIÓN 1: MAGNITUDES FÍSICAS (Syllabi: :cite[4]:cite[5])
-\section{Magnitudes Físicas y Unidades}
-\begin{itemize}
-    \item \textbf{Conversión de unidades}: Homogeneidad dimensional y factores de conversión (ej: \SI{1}{km} = \SI{1000}{m})
-    \item \textbf{Prefijos SI}: yocto (\SI{e-24}{}) a yotta (\SI{e24}{}) :cite[5]
-    \item \textbf{Unidades base SI}: 7 magnitudes fundamentales (metro, kilogramo, segundo, amperio, kelvin, mol, candela)
-    \item \textbf{Notación científica}: $N \times 10^n$ ($1 \leq |N| < 10$)
-    \item \textbf{Análisis dimensional}: Ecuación $[X] = L^a M^b T^c \Theta^d I^e N^f J^g$
-\end{itemize}
+% Reinicio de contadores
+\setcounter{mainsec}{0}
+\setcounter{subsec}{0}
+\setcounter{subsubsec}{0}
+\setcounter{subsubsubsec}{0}
 
-% SECCIÓN 2: VECTORES (Syllabus: :cite[5])
-\section{Vectores y Sistemas de Referencia}
-\begin{itemize}
-    \item \textbf{Operaciones}:
-    \begin{align*}
-    \vec{A} + \vec{B} &= (A_x + B_x)\hat{\imath} + (A_y + B_y)\hat{\jmath} \\
-    |\vec{A}| &= \sqrt{A_x^2 + A_y^2}
-    \end{align*}
-    
-    \item \textbf{Productos}:
-    \begin{align*}
-    \text{Punto: } &\vec{A} \cdot \vec{B} = |A||B|\cos\theta \\
-    \text{Cruz: } &|\vec{A} \times \vec{B}| = |A||B|\sin\theta
-    \end{align*}
-    
-    \item \textbf{Coordenadas polares}:
-    \[
-    x = r\cos\theta, \quad y = r\sin\theta, \quad \theta = \atan2(y,x)
-    \]
-\end{itemize}
+% ========= SECCIÓN 1: MAGNITUDES FÍSICAS Y UNIDADES =========
+\begin{seccionbox}{color1}{\mainnum. Magnitudes Físicas y Unidades}
+\vspace{0.5em}
+\numstyle{\subnum} Magnitudes adimensionales, fundamentales y derivadas.\par
+\numstyle{\subnum} Sistemas de unidades:\par
+\numstyle{\subsubnum} Sistema Internacional (SI).\par
+\numstyle{\subsubnum} Sistema Inglés.\par
+\numstyle{\subnum} Prefijos métricos en base 10.\par
+\numstyle{\subnum} Conversión de unidades y notación científica.\par
+\numstyle{\subnum} Incertidumbre y cifras significativas.\par
+\numstyle{\subnum} Estimaciones, órdenes de magnitud y regresión lineal.\par
+\numstyle{\subnum} Análisis dimensional.\par  
+\end{seccionbox}
 
-% SECCIÓN 3: CINEMÁTICA (Syllabi: :cite[4]:cite[5]:cite[7])
-\section{Cinemática}
-\subsection{Movimiento Unidimensional}
-\begin{itemize}
-    \item \textbf{MRU}: $\Delta x = v \Delta t$
-    \item \textbf{MRUV}:
-    \begin{align*}
-    x(t) &= x_0 + v_0t + \frac{1}{2}at^2 \\
-    a &= \text{constante} \neq f(t)
-    \end{align*}
-    \item \textbf{Caída libre}: $a = -g \approx \SI{-9.8}{\meter\per\second\squared}$
-\end{itemize}
+\setcounter{subsec}{0}
+\setcounter{subsubsec}{0}
+\setcounter{subsubsubsec}{0}
 
-\subsection{Movimiento Bidimensional}
-\begin{itemize}
-    \item \textbf{Componentes independientes}: $x(t)$, $y(t)$
-    \item \textbf{Proyectiles}:
-    \[
-    x = v_{0x}t, \quad y = v_{0y}t - \frac{1}{2}gt^2, \quad R_{\text{max}} = \frac{v_0^2 \sin 2\theta}{g}
-    \]
-\end{itemize}
+% ========= SECCIÓN 2: VECTORES =========
+\begin{seccionbox}{color2}{\mainnum. Vectores}
+\vspace{0.5em}
+\numstyle{\subnum} Vectores y escalares.\par
+\numstyle{\subnum} Vectores en una, dos y tres dimensiones.\par
+\numstyle{\subnum} Propiedades y operaciones básicas:\par
+\numstyle{\subsubnum} Magnitud.\par
+\numstyle{\subsubnum} Adición y sustracción vectorial.\par
+\numstyle{\subsubnum} Multiplicación por escalar.\par
+\numstyle{\subnum} Productos vectoriales:\par
+\numstyle{\subsubnum} Producto punto ($\vec{a} \cdot \vec{b}$ -- Escalar).\par
+\numstyle{\subsubnum} Producto cruz ($\vec{a} \times \vec{b}$ -- Vectorial).\par
+\numstyle{\subnum} Sistemas de coordenadas:\par
+\numstyle{\subsubnum} Cartesianas.\par
+\numstyle{\subsubnum} Polares.\par
+\numstyle{\subsubnum} Conversión entre sistemas.\par
+\end{seccionbox}
 
-\subsection{Movimiento Circular}
-\begin{itemize}
-    \item \textbf{Aceleración centrípeta}: $a_c = \dfrac{v^2}{r} = \omega^2 r$ :cite[8]
-    \item \textbf{Fuerza centrípeta}: $F_c = m a_c$ (requerida para trayectoria circular) :cite[8]
-    \item \textbf{Periodo y frecuencia}: $T = \dfrac{1}{f} = \dfrac{2\pi}{\omega}$
-    \item \textbf{Conceptos rotacionales}:
-    \begin{itemize}
-        \item Momento angular: $\vec{L} = \vec{r} \times \vec{p}$ (conservado si $\sum \tau = 0$)
-        \item Torque: $\vec{\tau} = \vec{r} \times \vec{F}$
-    \end{itemize}
-\end{itemize}
+\setcounter{subsec}{0}
+\setcounter{subsubsec}{0}
+\setcounter{subsubsubsec}{0}
 
-% SECCIÓN 4: LEYES DE NEWTON (Syllabi: :cite[4]:cite[6]:cite[7])
-\section{Leyes de Newton y Fuerzas}
-\subsection{Principios Fundamentales}
-\begin{enumerate}
-    \item $\sum \vec{F} = 0 \Leftrightarrow \vec{a} = 0$ (equilibrio)
-    \item $\sum \vec{F} = m\vec{a}$ (relación fuerza-aceleración)
-    \item $\vec{F}_{12} = -\vec{F}_{21}$ (pares acción-reacción)
-\end{enumerate}
+% ========= SECCIÓN 3: CINEMÁTICA =========
+\begin{seccionbox}{color3}{\mainnum. Cinemática}
+\vspace{0.5em}  
+\numstyle{\subnum} Movimiento Unidimensional:\par
+\numstyle{\subsubnum} Conceptos básicos:\par
+\numstyle{\subsubsubnum} Posición y desplazamiento.\par
+\numstyle{\subsubsubnum} Velocidad y aceleración promedio e instantánea.\par
+\numstyle{\subsubnum} Movimiento Rectilíneo Uniforme (MRU).\par
+\numstyle{\subsubnum} Movimiento Rectilíneo Uniformemente Acelerado (MRUA).\par
+\numstyle{\subsubnum} Caída libre como caso de MRUA.\par
+\numstyle{\subnum} Movimiento Bidimensional:\par
+\numstyle{\subsubnum} Conceptos elementales:\par
+\numstyle{\subsubsubnum} Vectores de posición, velocidad y aceleración.\par
+\numstyle{\subsubsubnum} Componentes independientes del movimiento en dos dimensiones.\par
+\numstyle{\subsubsubnum} Alcance máximo y altura máxima.\par
+\numstyle{\subsubnum} Movimiento semiparabólico.\par
+\numstyle{\subsubnum} Movimiento parabólico completo.\par
+\numstyle{\subnum} Movimiento Circular:\par
+\numstyle{\subsubnum} Conceptos angulares:\par
+\numstyle{\subsubsubnum} Periodo y frecuencia.\par
+\numstyle{\subsubsubnum} Desplazamiento, velocidad y aceleración angular.\par
+\numstyle{\subsubsubnum} Relación entre variables lineales y angulares.\par
+\numstyle{\subsubsubnum} Aceleración centrípeta.\par
+\numstyle{\subsubnum} Movimiento Circular Uniforme (MCU).\par
+\numstyle{\subsubnum} Movimiento circular no uniforme.\par
+\end{seccionbox}
 
-\subsection{Aplicaciones}
-\begin{itemize}
-    \item \textbf{Diagramas de cuerpo libre}: Esenciales para resolver problemas
-    \item \textbf{Fuerzas comunes}:
-    \begin{align*}
-    \text{Peso: } &\vec{W} = m\vec{g} \\
-    \text{Normal: } &\vec{N} \perp \text{superficie} \\
-    \text{Fricción: } &f_k = \mu_k N, \quad f_s \leq \mu_s N
-    \end{align*}
-    \item \textbf{Tensión}: Fuerza en medios flexibles (cuerdas/cables)
-\end{itemize}
+\setcounter{subsec}{0}
+\setcounter{subsubsec}{0}
+\setcounter{subsubsubsec}{0}
 
-% SECCIÓN 5: TRABAJO Y ENERGÍA (Syllabi: :cite[5]:cite[7])
-\section{Trabajo y Energía}
-\begin{itemize}
-    \item \textbf{Trabajo}: $W = \int \vec{F} \cdot d\vec{r} = Fd\cos\theta$ (camino dependiente)
-    \item \textbf{Energías}:
-    \begin{align*}
-    \text{Cinética: } &K = \frac{1}{2}mv^2 \\
-    \text{Potencial: } &U_g = mgh, \quad U_e = \frac{1}{2}kx^2
-    \end{align*}
-    \item \textbf{Conservación}: $\Delta K + \Delta U = 0$ (sistemas conservativos)
-    \item \textbf{Potencia}: $P = \dfrac{dW}{dt}$ (medida de rapidez energética)
-\end{itemize}
+% ========= SECCIÓN 4: DINÁMICA =========
+\begin{seccionbox}{color4}{\mainnum. Dinámica}
+\vspace{0.5em}
+\numstyle{\subnum} Primera Ley de Newton: Ley de Inercia.\par
+\numstyle{\subnum} Segunda Ley de Newton:\par
+\numstyle{\subsubnum} Estática o Equilibrio: $\sum\vec{F} = \vec{0}$.\par
+\numstyle{\subsubnum} Dinámica: $\sum\vec{F} = m\vec{a}$.\par
+\numstyle{\subnum} Tercera Ley de Newton: Acción y Reacción.\par
+\numstyle{\subnum} Aplicaciones:\par
+\numstyle{\subsubnum} Diagramas de Cuerpo Libre (DCL).\par
+\numstyle{\subsubnum} Tipos de fuerzas:\par
+\numstyle{\subsubsubnum} Peso (fuerza gravitatoria) y normal.\par
+\numstyle{\subsubsubnum} Tensión.\par
+\numstyle{\subsubsubnum} Fricción (estática y cinética).\par
+\numstyle{\subsubsubnum} Fuerza elástica (Ley de Hooke).\par
+\numstyle{\subsubnum} Sistemas en equilibrio estático.\par
+\numstyle{\subsubnum} Sistemas en movimiento dinámico (planos inclinados, poleas).\par
+\numstyle{\subnum} Dinámica Rotacional:\par
+\numstyle{\subsubnum} Torque (momento de fuerza).\par
+\numstyle{\subsubnum} Momento de inercia.\par
+\numstyle{\subsubnum} Segunda Ley para rotación: $\sum\tau = I\alpha$.\par
+\numstyle{\subsubnum} Energía cinética rotacional.\par
+\numstyle{\subsubnum} Equilibrio rotacional.\par
+\numstyle{\subsubnum} Aplicaciones:\par
+\numstyle{\subsubsubnum} Palancas (equilibrio y movimiento).\par
+\numstyle{\subsubsubnum} Poleas con momento de inercia.\par
+\end{seccionbox}
 
-% SECCIÓN 6: MOMENTO LINEAL (Syllabi: :cite[3]:cite[5]:cite[7])
-\section{Cantidad de Movimiento Lineal}
-\begin{itemize}
-    \item \textbf{Momento lineal}: $\vec{p} = m\vec{v}$ (vectorial)
-    \item \textbf{Impulso}: $\vec{J} = \Delta \vec{p} = \int \vec{F} dt$ :cite[3]
-    \item \textbf{Conservación}: $\sum \vec{p}_i = \text{constante}$ (sistemas aislados)
-    \item \textbf{Choques}:
-    \begin{itemize}
-        \item Elásticos: $\Delta K = 0$, $\sum \vec{p}$ conservado
-        \item Inelásticos: $\Delta K < 0$, $\sum \vec{p}$ conservado
-    \end{itemize}
-\end{itemize}
+\setcounter{subsec}{0}
+\setcounter{subsubsec}{0}
+\setcounter{subsubsubsec}{0}
 
-% Ejercicio modelo basado en :cite[3]
-\subsection*{Ejemplo aplicado}
-Un astronauta ($m_1 = \SI{90}{kg}$) lanza una bomba ($m_2 = \SI{360}{kg}$) con $v_2 = \SI{0.2}{m/s}$. Por conservación de momento:
-\[
-m_1 v_1 + m_2 v_2 = 0 \Rightarrow v_1 = -\frac{m_2}{m_1} v_2 = \SI{-0.8}{m/s}
-\]
+% ========= SECCIÓN 5: TRABAJO Y ENERGÍA =========
+\begin{seccionbox}{color5}{\mainnum. Trabajo y Energía}
+\vspace{0.5em}
+\numstyle{\subnum} Concepto de trabajo mecánico.\par
+\numstyle{\subnum} Trabajo por una fuerza constante y variable.\par
+\numstyle{\subnum} Energía mecánica:\par
+\numstyle{\subsubnum} Energía cinética (traslacional y rotacional).\par
+\numstyle{\subsubnum} Energía potencial (gravitatoria y elástica).\par
+\numstyle{\subnum} Teorema trabajo-energía.\par
+\numstyle{\subnum} Principio de conservación de la energía mecánica.\par
+\numstyle{\subsubnum} Ejemplos y aplicaciones:\par
+\numstyle{\subsubsubnum} Caída libre.\par
+\numstyle{\subsubsubnum} Planos inclinados.\par
+\numstyle{\subsubsubnum} Péndulos.\par
+\numstyle{\subnum} Fuerzas conservativas y no conservativas.\par
+\numstyle{\subnum} Potencia mecánica.\par
+\end{seccionbox}
 
-% Referencias a programas académicos
-\begin{table}[h]
-\centering
-\caption{Correspondencia con syllabi universitarios}
-\begin{tabular}{@{}ll@{}}
-\toprule
-\textbf{Universidad} & \textbf{Contenido equivalente} \\ \midrule
-Unicamp (F008) :cite[4] & Magnitudes, Movimientos, Leyes Newton, Energía \\
-USP (Física I) :cite[5] & Cinemática, Dinámica, Momento lineal, Trabajo \\
-Unicamp (LE201) :cite[7] & Cinemática, Leyes Newton, Conservación energía/momento \\ \bottomrule
-\end{tabular}
-\end{table}
+\setcounter{subsec}{0}
+\setcounter{subsubsec}{0}
+\setcounter{subsubsubsec}{0}
+
+% ========= SECCIÓN 6: SISTEMAS DE PARTÍCULAS =========
+\begin{seccionbox}{color6}{\mainnum. Sistemas de Partículas y Cantidad de Movimiento}
+\vspace{0.5em}
+\numstyle{\subnum} Centro de masa.\par
+\numstyle{\subnum} Momento lineal (cantidad de movimiento).\par
+\numstyle{\subnum} Impulso mecánico.\par
+\numstyle{\subnum} Teorema impulso-momento.\par
+\numstyle{\subnum} Conservación del momento lineal.\par
+\numstyle{\subnum} Colisiones o choques:\par
+\numstyle{\subsubnum} Elásticas.\par
+\numstyle{\subsubnum} Inelásticas.\par
+\numstyle{\subsubnum} Perfectamente inelásticas.\par
+\numstyle{\subsubnum} Colisiones en dos dimensiones.\par
+\end{seccionbox}
 
 \end{document}
